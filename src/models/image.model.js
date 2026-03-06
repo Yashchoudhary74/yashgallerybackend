@@ -2,17 +2,15 @@ import mongoose from "mongoose";
 
 const imageSchema = new mongoose.Schema({
 
-
-    imageSrc: {
+    originalImageSrc: {
         type: String,
+        required: true,
         trim: true,
-        unique: true,
         default: "placeholder.jpg"
     },
-    ghibliSrc: {
+    artImageSrc: {
         type: String,
         trim: true,
-        unique: true,
         default: "placeholder.jpg"
     },
     location: {
@@ -20,7 +18,7 @@ const imageSchema = new mongoose.Schema({
         trim: true,
         default: "null",
         lowercase: true,
-        
+
     }
 
 

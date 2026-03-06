@@ -7,6 +7,7 @@ import { imageRoute } from './routes/image.route.js';
 import { adminRoute } from './routes/admin.route.js';
 const app = express()
 import cors from 'cors'
+import { errorHandler } from './middleware/errorHandler.middleware.js';
 
 
 
@@ -14,8 +15,10 @@ app.use(cors({
     origin: true,
     credentials: true
 }))
+app.use(errorHandler)
 
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 const PORT = process.env.PORT || 1101
 const DB_URL = process.env.DB_URL
