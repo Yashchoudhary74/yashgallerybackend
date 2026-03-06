@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Image } from "../models/image.model.js";
-import { uploadOnCloudinary } from "../util/cloudinarry.util.js";
-import { errorHandler } from "../middleware/errorHandler.middleware.js";
+import { uploadOnCloudinary } from "../util/cloudinary.util.js";
+
 import fs from 'fs'
 const getDashboard = async (req, res) => {
     res.render('dashboard')
