@@ -10,7 +10,7 @@ import cors from 'cors'
 
 
 app.use(cors({
-    origin: 'https://yourpics.netlify.app/'
+    origin: 'https://yourpics.netlify.app'
 }))
 
 
