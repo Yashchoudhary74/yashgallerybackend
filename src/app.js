@@ -7,15 +7,12 @@ import { imageRoute } from './routes/image.route.js';
 import { adminRoute } from './routes/admin.route.js';
 const app = express()
 import cors from 'cors'
-import { errorHandler } from './middleware/errorHandler.middleware.js';
-
 
 
 app.use(cors({
-    origin: true,
-    credentials: true
+    origin: 'https://yourpics.netlify.app/'
 }))
-app.use(errorHandler)
+
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
