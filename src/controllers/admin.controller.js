@@ -4,7 +4,10 @@ import { uploadOnCloudinary } from "../util/cloudinary.util.js";
 
 import fs from 'fs'
 const getDashboard = async (req, res) => {
-    res.render('dashboard')
+    const dataCount = await Image.find()
+   
+   
+    res.render('dashboard', { totalData: dataCount.length, imageData: dataCount })
 }
 const postAdminForm = async (req, res) => {
 
@@ -33,8 +36,8 @@ const postAdminForm = async (req, res) => {
             location
         });
 
-        if(!dataInserted){
-           return res.redirect('/dashboard/admin')
+        if (!dataInserted) {
+            return res.redirect('/dashboard/admin')
         }
 
 
@@ -45,7 +48,7 @@ const postAdminForm = async (req, res) => {
         //     data: [dataInserted, uploadOriginal, uploadArt]
         // });
 
-      return res.redirect('/dashboard')
+        return res.redirect('/dashboard')
 
     } catch (error) {
 
