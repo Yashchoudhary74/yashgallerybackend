@@ -5,8 +5,8 @@ import { uploadOnCloudinary } from "../util/cloudinary.util.js";
 import fs from 'fs'
 const getDashboard = async (req, res) => {
     const dataCount = await Image.find()
-   
-   
+
+
     res.render('dashboard', { totalData: dataCount.length, imageData: dataCount })
 }
 const postAdminForm = async (req, res) => {
@@ -65,6 +65,14 @@ const postAdminForm = async (req, res) => {
 const getAdminForm = (req, res) => {
 
     res.render('admin', { errorMessage: "" })
+    
 }
 
-export { getAdminForm, postAdminForm, getDashboard }
+const deleteAdminData = async (req, res) => {
+    const id = req.params.id
+    const isDelete = await Image.findByIdAndDelete(id)
+    if(isDelete) return res.redirect('/dashboard')
+    console.log(isDelete ? "Deleted" : "Not deleted")
+}
+
+export { getAdminForm, postAdminForm, getDashboard, deleteAdminData }

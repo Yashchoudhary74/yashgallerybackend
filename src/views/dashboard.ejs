@@ -1,98 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Photo Gallery Dashboard</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .container {
-        background: white;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        width: 90%;
-        max-width: 600px;
-      }
-      h1 {
-        color: #333;
-        margin-bottom: 30px;
-        font-size: 2.5em;
-      }
-      .stats {
-        background: #f0f0f0;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 30px;
-        font-size: 1.2em;
-        color: #555;
-      }
-      .stats strong {
-        color: #667eea;
-      }
-      .actions {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-      .btn {
-        padding: 15px 30px;
-        font-size: 1em;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
-        text-decoration: none;
-        display: inline-block;
-      }
-      .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-      .btn-upload {
-        background: #667eea;
-        color: white;
-      }
-      .btn-manage {
-        background: #764ba2;
-        color: white;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Photo Gallery Dashboard</h1>
 
-      <div class="stats">
-        <p>Total Data: <strong><%= totalData %></strong></p>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 5px;" >
-      
-      <% imageData.map((item,index)=>{ %>
-      <img style="width: 100%;" src="<%= item.artImageSrc %>" />
-  <% }) %>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo Gallery Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      <div class="actions">
-        <a href="/dashboard/admin" class="btn btn-upload">Upload Photos</a>
-        <a href="/manage" class="btn btn-manage">Manage Photos</a>
-      </div>
+    body {
+      font-family: Arial, sans-serif;
+    
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+          background: white;
+    padding: 40px 10px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    max-width: 600px;
+    height: 90vh;
+    position: relative;
+    overflow: auto;
+    scrollbar-width: none;
+    scrollbar-color: #5bc1ff #ffffff;
+
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 1.2em;
+    }
+
+    .stats {
+    display: flex;
+    justify-content: center;
+    background: #f0f0f0;
+    padding: 0 10px;
+    border-radius: 8px;
+    /* margin-bottom: 30px; */
+    font-size: 1em;
+    color: #555;
+    align-items: center;
+    }
+
+    .stats strong {
+      color: #667eea;
+    }
+
+    .actions {
+         display: flex;
+    position: sticky;
+    width: 100%;
+    bottom: -40px;
+    background: deepskyblue;
+    padding: 10px 0;
+    margin: 10px 0;
+    gap: 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 0.8rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-upload {
+      background: #454545;
+      color: white;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Photo Gallery Dashboard</h1>
+
+    
+    <div style="display: flex; flex-direction: column;  max-width: 500px;  gap: 10px ">
+
+      <% imageData?.map((item,index)=>{ %>
+        <div style=" align-items: center;  display: flex; justify-content: space-evenly;
+    flex-direction: row; height: auto; max-width: 500px; outline: 1px solid #8080805e; background-color: white; gap: 5px; ">
+          <img style="width: 15%;" src="<%= item.originalImageSrc %>" />
+          <img style="width: 15%;" src="<%= item.artImageSrc %>" />
+          <form action="/dashboard/admin/<%= item._id %>" method="post">
+            <button style="border: none;
+    width: 80px;
+    height: 24px;
+    color: white;
+    border-radius: 85px;
+    background: deepskyblue;" type="submit">DELETE</button>
+          </form>
+
+        </div>
+        <% }) %>
     </div>
-  </body>
+
+    <div class="actions">
+      <a href="/dashboard/admin" class="btn btn-upload">Upload Photos</a>
+      <div class="stats">
+      <p>Total Data: <strong>
+          <%= totalData %>
+        </strong></p>
+    </div>
+   
+    </div>
+  </div>
+</body>
+
 </html>
